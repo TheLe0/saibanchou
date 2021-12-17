@@ -1,0 +1,30 @@
+{
+  "name": "create-node-app",
+  "version": "1.0.0",
+  "description": "Boilerplate of a node backend app",
+  "main": "dist/app.js",
+  "repository": "https://github.com/TheLe0/create-node-app.git",
+  "author": "TheLe0 <leob.tosin@hotmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "start:dev": "tsc && node dist/app.js | pino-pretty",
+    "start:prod": "set NODE_ENV=production && tsc && node dist/app.js",
+    "test": "jest"
+  },
+  "devDependencies": {
+    "@types/dotenv": "^8.2.0",
+    "@types/express": "^4.16.1",
+    "@types/jest": "^27.0.3",
+    "@types/node": "^16.11.7",
+    "@types/pino": "^6.3.11",
+    "jest": "^27.3.1",
+    "pino-pretty": "^7.0.0",
+    "tslint": "^5.12.1",
+    "typescript": "^3.3.3"
+  },
+  "dependencies": {
+    "dotenv": "ˆ10.0.0",
+    "express": "^4.16.3",
+    "pino": "^6.13.2"
+  }
+}
