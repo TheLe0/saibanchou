@@ -1,7 +1,7 @@
 import express from 'express';
 import { makeLogger } from '../log';
 import routes  from './routes';
-import { serverConfig } from '../config/server';
+import { ServerVars } from '../config';
 
 export default class Server {
     private readonly app: any;
@@ -18,10 +18,10 @@ export default class Server {
 
     public start() {
         this.setupRoutes();
-        this.app.listen(serverConfig.Port, () => {
+        this.app.listen(ServerVars.Port, () => {
             this.log.debug({
                 type: 'LOG_TYPE_1',
-                message: `Server listening on port 3000`
+                message: `Server ${ServerVars.Server} listening on port ${ServerVars.Port}`
             });
         });
     }

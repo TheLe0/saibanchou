@@ -1,0 +1,1 @@
+export { serverConfig as ServerVars } from './server';
