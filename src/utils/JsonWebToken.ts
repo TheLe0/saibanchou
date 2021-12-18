@@ -27,7 +27,7 @@ export default class JsonWebToken {
         {
             return false;
         }
-        else if (decoded.user.id != user.id ||  decoded.user.name != user.name ||  decoded.user.role != user.role)
+        else if (decoded.user.name != user.name ||  decoded.user.email != user.email ||  decoded.user.role != user.role)
         {
             return false;
         }
