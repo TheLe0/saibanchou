@@ -11,10 +11,9 @@ jobs:
   test:
     runs-on: ubuntu-latest
     env:
-      SECRET_KEY: ${{ secrets.SECRET_KEY }}
-      USERNAME: ${{ secrets.USERNAME }}
-      EMAIL: ${{ secrets.EMAIL }}
-      PASSWORD: ${{ secrets.PASSWORD }}
+      SERVER: ${{ secrets.SERVER }}
+      PORT: ${{ secrets.PORT }}
+      SALT: ${{ secrets.SALT }}
     strategy:
       max-parallel: 4
     steps:
