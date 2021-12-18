@@ -1,1 +1,1 @@
-export { default as Encrypt } from './Encrypt';
+export { default as Crypt } from './Crypt';
