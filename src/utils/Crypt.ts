@@ -5,7 +5,7 @@ export default class Crypt {
 
     private rounds: number; 
 
-    public Crypt() {
+    constructor() {
         this.rounds = parseInt(EncryptVars.Salt);
     }
 

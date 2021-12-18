@@ -11,11 +11,11 @@ datasource db {
 }
 
 model User {
-  id    String  @id
-  email String  @unique
-  name  String?
-  role  String
-  posts Token[]
+  id     String  @id
+  email  String  @unique
+  name   String?
+  role   String
+  tokens Token[]
 }
 
 model Token {
