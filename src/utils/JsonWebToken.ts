@@ -18,4 +18,21 @@ export default class JsonWebToken {
             expiresIn: this.expiration
         });
     }
+
+    public async validateToken(user: UserModel, token: string) :Promise<boolean> {
+     
+        const decoded = await jwt.verify(token, this.secret);
+
+        if ((decoded.exp * 1000)<= Date.now())
+        {
+            return false;
+        }
+        else if (decoded.user.id != user.id ||  decoded.user.name != user.name ||  decoded.user.role != user.role)
+        {
+            return false;
+        }
+
+        return true;
+        
+    }
 }

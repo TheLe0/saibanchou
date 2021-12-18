@@ -12,3 +12,11 @@ test('generate JWT test', async () => {
     expect(token).toBeDefined();
 });
 
+
+test('verify JWT test', async () => {
+    const token = await jwt.generateToken(user);
+    const match = await jwt.validateToken(user, token);
+
+    expect(match).toBe(true);
+});
+
