@@ -10,13 +10,16 @@
     "noImplicitAny": false,
     "strictPropertyInitialization": false,
     "esModuleInterop": true,
-    "types": []
+    "types": [
+      "jest"
+    ]
   },
   "lib": [
     "es2015"
   ],
   "include": [
-    "src/*"
+    "src/*",
+    "test"  
   ],
   "exclude": [
     "node_modules",
