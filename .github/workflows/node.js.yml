@@ -26,3 +26,10 @@ jobs:
           node-version: 14
       - run: yarn
       - run: yarn test
+        env:
+          DATABASE_NAME: USER_API
+          DATABASE_USER: postgres
+          DATABASE_PASS: postgres
+          DATABASE_PORT: 5432
+          DATABASE_HOST: localhost
+          REDIS_HOST: redis
