@@ -1,13 +1,13 @@
 {
-  "name": "create-node-app",
+  "name": "authPI",
   "version": "1.0.0",
-  "description": "Boilerplate of a node backend app",
+  "description": "An REST API for authorizate and authenticate users",
   "main": "dist/app.js",
-  "repository": "https://github.com/TheLe0/create-node-app.git",
+  "repository": "https://github.com/TheLe0/AuthPI.git",
   "author": "TheLe0 <leob.tosin@hotmail.com>",
   "license": "MIT",
   "scripts": {
-    "start:dev": "tsc && node dist/app.js | pino-pretty",
+    "start:dev": "ts-node-dev --respawn  src/app.ts | pino-pretty",
     "start:prod": "set NODE_ENV=production && tsc && node dist/app.js",
     "test": "jest --setupFiles dotenv/config"
   },
@@ -24,6 +24,7 @@
     "pino-pretty": "^7.0.0",
     "prisma": "^3.6.0",
     "ts-jest": "^27.1.2",
+    "ts-node-dev": "^1.1.8",
     "tslint": "^5.12.1",
     "typescript": "^3.3.3"
   },
