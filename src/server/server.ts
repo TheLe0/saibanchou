@@ -1,3 +1,4 @@
+import cors from 'cors';
 import express from 'express';
 import { makeLogger } from '../log';
 import routes  from './routes';
@@ -12,12 +13,14 @@ export default class Server {
         this.log = makeLogger(); 
     }
 
-    private setupRoutes() {
+    private setupApp() {
+        this.app.use(cors());
+        this.app.use(express.json());
         this.app.use(routes);
     }
 
     public start() {
-        this.setupRoutes();
+        this.setupApp();
         this.app.listen(ServerVars.Port, () => {
             this.log.debug({
                 type: 'LOG_TYPE_1',
