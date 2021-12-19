@@ -32,6 +32,21 @@ class User {
             res.status(500).json({message: "Internal server error, please try again later!"});
         }
     }
+
+    public async login(req: Request, res: Response)
+    {
+        const repository = new UserRepository();
+
+        const { email, password} = req.body;
+
+        const token = await repository.login(email, password);
+
+        if (token != undefined) {
+            res.status(202).json({token})
+        } else {
+            res.status(404).json({message: "The e-mail or password are incorrect"})
+        }
+    }
 }
 
 export default new User();
