@@ -33,12 +33,30 @@ class User  {
         }
     }
 
-    public async listAll(req: Request, res: Response)
-    {
+    public async listAll(req: Request, res: Response) {
         const repository = new UserRepository();
         const listUsers = await repository.listAll();
 
         res.status(202).json(listUsers);
+    }
+
+    public async listByRole(req: Request, res: Response) {
+        const repository = new UserRepository();
+        const { role } = req.params;
+
+        const listUsers = await repository.listByRole(role);
+
+        res.status(202).json(listUsers);
+    }
+
+    public async findUser(req: Request, res: Response) {
+        
+        const repository = new UserRepository();
+        const { email } = req.params;
+
+        const user = await repository.findByEmail(email);
+
+        res.status(202).json(user);
     }
 
     public async update(req: Request, res: Response) {
