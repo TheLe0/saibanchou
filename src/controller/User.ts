@@ -8,9 +8,18 @@ class User {
     {
         const repository = new UserRepository();
         let createdUser : UserModel;
+
+        const { email, name, role, password} = req.body;
+
+        createdUser = {
+            name: name,
+            email: email,
+            role: role
+        };
+
         try
         {
-            createdUser = await repository.createNewUser(req.body);
+            createdUser = await repository.createNewUser(createdUser, password);
 
             if (repository.hasError())
             {
