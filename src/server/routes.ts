@@ -8,7 +8,8 @@ routes.get('/', authenticateUser, (req, res) => {
     res.send('Made with 💙 by TheLe0');
 });
 
-routes.post('/user', authenticateUser, UserController.createUser);
+routes.post('/user', authenticateUser, UserController.create);
+routes.put('/user', authenticateUser, UserController.update);
 routes.post('/user/login', UserController.login);
 
 export default routes;
