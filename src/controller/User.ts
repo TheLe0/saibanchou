@@ -84,6 +84,23 @@ class User  {
         res.status(201).json(user);
     }
 
+    public async delete(req: Request, res: Response) {
+        
+        const repository = new UserRepository();
+        const { email } = req.params;
+
+        const hasBeenDeleted = await repository.deleteUserByEmail(email);
+
+        if (hasBeenDeleted)
+        {
+            res.status(202).json("The user was successfully deleted!");
+        }
+        else
+        {
+            res.status(500).json("Some error during the user deletion, please try again later!");
+        }
+    }
+
     public async login(req: Request, res: Response)
     {
         const repository = new UserRepository();

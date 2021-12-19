@@ -14,5 +14,6 @@ routes.get('/users/:role/', authenticateUser, UserController.listByRole);
 routes.post('/user', authenticateUser, UserController.create);
 routes.put('/user', authenticateUser, UserController.update);
 routes.post('/user/login', UserController.login);
+routes.delete('/user/:email/', authenticateUser, UserController.delete);
 
 export default routes;
