@@ -62,6 +62,19 @@ export default class User extends BaseRepository {
         return (foundUser > 0);
     }
 
+    public async listAll() : Promise<UserModel[]>{
+
+        const users = await this.prisma.user.findMany({
+            select: {
+                name: true,
+                email: true,
+                role: true
+            }
+        });
+
+        return users;
+    }
+
     public async updateUser(user: UserModel, email: string) :Promise<UserModel> {
 
         const updatedUser = await this.prisma.user.update({

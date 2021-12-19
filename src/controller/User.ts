@@ -33,6 +33,14 @@ class User  {
         }
     }
 
+    public async listAll(req: Request, res: Response)
+    {
+        const repository = new UserRepository();
+        const listUsers = await repository.listAll();
+
+        res.status(202).json(listUsers);
+    }
+
     public async update(req: Request, res: Response) {
 
         const repository = new UserRepository();
