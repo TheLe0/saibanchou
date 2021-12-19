@@ -48,6 +48,19 @@ export default class User extends BaseRepository {
         }
     }
 
+    public async userExists(user: UserModel) : Promise<boolean> {
+
+        const foundUser = await this.prisma.user.count({
+            where: {
+                email: user.email,
+                name: user.name,
+                role: user.role
+              },
+        });
+
+        return (foundUser > 0);
+    }
+
     public async login(email: string, password: string) :Promise<string> {
 
         let token = undefined;
@@ -57,7 +70,7 @@ export default class User extends BaseRepository {
             where: {
               email: email,
             },
-        })
+        });
 
         if (user != undefined) {
 
