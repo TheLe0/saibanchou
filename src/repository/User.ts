@@ -62,6 +62,21 @@ export default class User extends BaseRepository {
         return (foundUser > 0);
     }
 
+    public async updateUser(user: UserModel) :Promise<UserModel> {
+
+        const updatedUser = await this.prisma.user.update({
+            where: {
+              email: user.email,
+            },
+            data: {
+              name: user.name,
+              role: user.role
+            },
+        });
+
+        return updatedUser;
+    } 
+
     public async login(email: string, password: string) :Promise<string> {
 
         let token = undefined;
