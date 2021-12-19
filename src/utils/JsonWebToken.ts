@@ -24,6 +24,15 @@ export default class JsonWebToken {
        }
     }
 
+    public extractUserFromToken(authHeader: string) :Promise<UserModel> {
+
+        const token = this.extractToken(authHeader);
+
+        if (token != undefined) {
+            return this.getUserFromToken(token);
+        }
+    }
+
     public async generateToken(user: UserModel) :Promise<string> {
 
         return await jwt.sign({user}, this.secret, {
