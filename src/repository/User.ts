@@ -2,6 +2,9 @@ import { PrismaClient, Prisma } from '@prisma/client'
 import { v4 as uuid} from 'uuid';
 import { UserModel } from '../model';
 import BaseRepository  from './BaseRepository';
+import { Crypt } from '../utils';
+
+const crypt = new Crypt();
 
 export default class User extends BaseRepository {
 
@@ -12,8 +15,10 @@ export default class User extends BaseRepository {
         this.prisma = new PrismaClient();
     }
 
-    public async createNewUser(user: UserModel) :Promise<UserModel> {
+    public async createNewUser(user: UserModel, password: string) :Promise<UserModel> {
         
+        const encryptedPassword = await crypt.encrypt(password);
+
         try {
             const newUser = await this.prisma.user.create({
                 data: {
@@ -21,6 +26,7 @@ export default class User extends BaseRepository {
                     name: user.name,
                     email: user.email,
                     role: user.role,
+                    password: encryptedPassword
                 },
             });
 
