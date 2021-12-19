@@ -15,5 +15,6 @@ routes.post('/user', authenticateUser, UserController.create);
 routes.put('/user', authenticateUser, UserController.update);
 routes.post('/user/login', UserController.login);
 routes.delete('/user/:email/', authenticateUser, UserController.delete);
+routes.patch('/user/', authenticateUser, UserController.changePassword);
 
 export default routes;

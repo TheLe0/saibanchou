@@ -134,6 +134,41 @@ export default class User extends BaseRepository {
         return (deleteUser != undefined);
     }
 
+    public async changePassword(email: string, oldPassword: string, newPassword: string) :Promise<boolean> {
+
+        const user = await this.prisma.user.findUnique({
+            select: {
+              password: true,  
+            },
+            where: {
+              email: email,
+            },
+        });
+
+        const match = await crypt.decrypt(user.password, oldPassword);
+
+        if (!match) {
+            return false;
+        }
+
+        const hash = await crypt.encrypt(newPassword);
+
+        const updatedUser = await this.prisma.user.update({
+            where: {
+              email: email,
+            },
+            data: {
+                password: hash
+            },
+        });
+
+        if (updatedUser == undefined) {
+            return false;
+        }
+
+        return true;
+    }
+
     public async login(email: string, password: string) :Promise<string> {
 
         let token = undefined;
