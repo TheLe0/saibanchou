@@ -16,6 +16,14 @@ export default class JsonWebToken {
         this.tokenExpiration = undefined;
     }
 
+    public extractToken(authHeader: string) :string {
+        if (authHeader.startsWith("Bearer ")) {
+            return authHeader.substring(7, authHeader.length);
+       } else {
+          return undefined;
+       }
+    }
+
     public async generateToken(user: UserModel) :Promise<string> {
 
         return await jwt.sign({user}, this.secret, {
@@ -36,7 +44,7 @@ export default class JsonWebToken {
         this.tokenExpiration = decoded.exp;
     }
 
-    public async validateToken(user: UserModel, token: string) :Promise<boolean> {
+    public async validateToken(token: string) :Promise<boolean> {
      
         await this.decodeToken(token);
 
@@ -44,12 +52,18 @@ export default class JsonWebToken {
         {
             return false;
         }
-        else if (this.user.name != user.name ||  this.user.email != user.email ||  this.user.role != user.role)
-        {
-            return false;
-        }
 
         return true;
         
+    }
+
+    public async getUserFromToken(token?: string): Promise<UserModel> {
+
+        if (this.user == undefined && token != undefined)
+        {
+            await this.decodeToken(token);
+        }
+
+        return this.user;
     }
 }
