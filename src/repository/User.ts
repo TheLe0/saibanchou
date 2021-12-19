@@ -121,7 +121,18 @@ export default class User extends BaseRepository {
         });
 
         return updatedUser;
-    } 
+    }
+    
+    public async deleteUserByEmail(email: string) :Promise<boolean> {
+
+        const deleteUser = await this.prisma.user.delete({
+            where: {
+              email: email,
+            },
+        })
+
+        return (deleteUser != undefined);
+    }
 
     public async login(email: string, password: string) :Promise<string> {
 
