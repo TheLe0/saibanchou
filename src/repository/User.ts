@@ -3,6 +3,7 @@ import { v4 as uuid} from 'uuid';
 import { UserModel } from '../model';
 import BaseRepository  from './BaseRepository';
 import { Crypt } from '../utils';
+import { JsonWebToken } from '../utils';
 
 const crypt = new Crypt();
 
@@ -47,4 +48,31 @@ export default class User extends BaseRepository {
         }
     }
 
+    public async login(email: string, password: string) :Promise<string> {
+
+        let token = undefined;
+        const jwt = new JsonWebToken();
+
+        const user = await this.prisma.user.findUnique({
+            where: {
+              email: email,
+            },
+        })
+
+        if (user != undefined) {
+
+            if (crypt.decrypt(user.password, password))
+            {
+                const userHash = {
+                    name: user.name,
+                    email: user.email,
+                    role: user.role
+                };
+
+                token = await jwt.generateToken(userHash);
+            }
+        }
+
+        return token;
+    }
 }
