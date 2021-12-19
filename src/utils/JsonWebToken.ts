@@ -6,10 +6,14 @@ export default class JsonWebToken {
 
     private secret: string;
     private expiration: number;
+    private user: UserModel;
+    private tokenExpiration: number;
 
     constructor() {
         this.secret =  AuthVars.Secret;
         this.expiration = parseInt(AuthVars.Expiration);
+        this.user = undefined;
+        this.tokenExpiration = undefined;
     }
 
     public async generateToken(user: UserModel) :Promise<string> {
@@ -19,15 +23,28 @@ export default class JsonWebToken {
         });
     }
 
-    public async validateToken(user: UserModel, token: string) :Promise<boolean> {
-     
+    private async decodeToken(token: string) {
+
         const decoded = await jwt.verify(token, this.secret);
 
-        if ((decoded.exp * 1000)<= Date.now())
+        this.user =  {
+            name: decoded.user.name,
+            email: decoded.user.email,
+            role: decoded.user.role
+        }
+
+        this.tokenExpiration = decoded.exp;
+    }
+
+    public async validateToken(user: UserModel, token: string) :Promise<boolean> {
+     
+        await this.decodeToken(token);
+
+        if ((this.tokenExpiration * 1000)<= Date.now())
         {
             return false;
         }
-        else if (decoded.user.name != user.name ||  decoded.user.email != user.email ||  decoded.user.role != user.role)
+        else if (this.user.name != user.name ||  this.user.email != user.email ||  this.user.role != user.role)
         {
             return false;
         }
