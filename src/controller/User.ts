@@ -1,8 +1,9 @@
 import { Request, Response } from 'express';
 import { UserRepository } from '../repository';
 import { UserModel } from '../model';
+import { JsonWebToken } from '../utils';
 
-class User {
+class User  {
 
     public async create(req: Request, res: Response)
     {
@@ -35,10 +36,13 @@ class User {
     public async update(req: Request, res: Response) {
 
         const repository = new UserRepository();
+        const jwt = new JsonWebToken();
+
+        const { email } = await jwt.extractUserFromToken(req.headers['authorization']);
 
         let user = req.body;
 
-        const updatedUser = await repository.updateUser(user);
+        const updatedUser = await repository.updateUser(user, email);
 
         if (updatedUser == undefined)
         {
