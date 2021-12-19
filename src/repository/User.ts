@@ -62,6 +62,22 @@ export default class User extends BaseRepository {
         return (foundUser > 0);
     }
 
+    public async findByEmail(email: string) :Promise<UserModel> {
+
+        const user = await this.prisma.user.findUnique({
+            select: {
+                email: true,
+                name: true,
+                role: true
+            },
+            where: {
+                email: email
+            },
+        });
+
+        return user;
+    }
+
     public async listAll() : Promise<UserModel[]>{
 
         const users = await this.prisma.user.findMany({
@@ -69,6 +85,22 @@ export default class User extends BaseRepository {
                 name: true,
                 email: true,
                 role: true
+            }
+        });
+
+        return users;
+    }
+
+    public async listByRole(role: string) : Promise<UserModel[]>{
+
+        const users = await this.prisma.user.findMany({
+            select: {
+                name: true,
+                email: true,
+                role: true
+            },
+            where: {
+                role: role
             }
         });
 
