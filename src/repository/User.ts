@@ -45,6 +45,7 @@ export default class User extends BaseRepository {
                     }
                 }
             }
+            super.logError(e);
         }
     }
 
