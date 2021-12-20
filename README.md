@@ -24,7 +24,9 @@ Where:
 
 * <b>SALT</B> this is a number where you specify the number of rounds of the salt when you use bcrypt.
 
-* <b>JWT_SECRET</B> this is the symetric key for generate the JWT tokens, the algorithm used was the default, SHA256, and its use only on key (symetric).
+* <b>JWT_SECRET</B> this is the symetric key for generate the JWT tokens, the algorithm used was the default, SHA256, and its use only on key (symetric). The tests was build using ```EQrsJ1qzQW``` as the key. If you are going to use another, change the JWTs used as mock on the tests.
+
+* <b>JWT_EXPIRATION</B> time in seconds for the token to expire, used ```84600``` as example.
 
 2. Run ```yarn``` for install all the dependencies of the project.
 
