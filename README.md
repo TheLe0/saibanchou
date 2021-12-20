@@ -32,7 +32,7 @@ Where:
 
 3. Run ```docker-compose up -d``` to create the container for the postgres database. And create a new database named ```USER_API```.
 
-4. Run the prisma migrations ```npx prisma migrate dev -d```, this is going to execute all the migrations, creating all the database structure.
+4. Run the prisma migrations ```npx prisma migrate dev```, this is going to execute all the migrations, creating all the database structure.
 
 5. Execute the tests ```yarn test``` to see if is everything fine and working.
 
