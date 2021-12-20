@@ -183,7 +183,7 @@ export default class User extends BaseRepository {
 
         if (user != undefined) {
 
-            if (crypt.decrypt(user.password, password))
+            if (await crypt.decrypt(user.password, password))
             {
                 const userHash = {
                     name: user.name,
