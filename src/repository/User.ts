@@ -1,4 +1,5 @@
 import { PrismaClient, Prisma } from '@prisma/client'
+import { PrismaFactory } from '../data';
 import { v4 as uuid} from 'uuid';
 import { UserModel } from '../model';
 import BaseRepository  from './BaseRepository';
@@ -13,7 +14,7 @@ export default class User extends BaseRepository {
 
     constructor() {  
         super();
-        this.prisma = new PrismaClient();
+        this.prisma = PrismaFactory.getInstance();
     }
 
     public async createNewUser(user: UserModel, password: string) :Promise<UserModel> {
