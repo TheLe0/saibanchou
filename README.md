@@ -1,4 +1,5 @@
 # AuthPI
+[![.github/workflows/node.js.yml](https://github.com/TheLe0/AuthPI/actions/workflows/node.js.yml/badge.svg)](https://github.com/TheLe0/AuthPI/actions/workflows/node.js.yml)
 
 AuthPI is a REST API made on Node for authenticate and authorize users.
 
