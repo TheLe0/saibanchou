@@ -84,6 +84,23 @@ class User  {
         res.status(201).json(user);
     }
 
+    public async changePassword(req: Request, res: Response) {
+
+        const repository = new UserRepository();
+        const { old_password, new_password } = req.body;
+        const jwt = new JsonWebToken();
+
+        const { email } = await jwt.extractUserFromToken(req.headers['authorization']);
+
+        const changed = await repository.changePassword(email, old_password, new_password);
+
+        if (changed) {
+            res.status(202).json("The password was successfully updated!");
+        } else {
+            res.status(403).json("The old password do not match to the user email!");
+        }
+    }
+
     public async delete(req: Request, res: Response) {
         
         const repository = new UserRepository();
