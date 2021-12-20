@@ -229,3 +229,4 @@ The project is not over, there are some new features that are going to be featur
 
 - [ ] Use redis to cache the information
 - [ ] Implement refresh tokens
+- [ ] Implement authorization by roles
