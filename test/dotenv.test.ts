@@ -1,5 +1,6 @@
 import { 
-    ServerVars, 
+    ServerVars,
+    SuperUserVars, 
     EncryptVars, 
     AuthVars, 
     DatabaseVars 
@@ -12,6 +13,12 @@ test('load server env vars test', () => {
 
 test('load encrypt env vars test', () => {
     expect(EncryptVars.Salt).toBeDefined();
+});
+
+test('load super user env vars test', () => {
+    expect(SuperUserVars.Name).toBeDefined();
+    expect(SuperUserVars.Email).toBeDefined();
+    expect(SuperUserVars.Password).toBeDefined();
 });
 
 test('load database env vars test', () => {

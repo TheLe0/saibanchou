@@ -17,6 +17,9 @@ jobs:
       DATABASE_URL: ${{ secrets.DATABASE_URL }}
       JWT_SECRET: ${{ secrets.JWT_SECRET }}
       JWT_EXPIRATION: ${{ secrets.JWT_EXPIRATION }}
+      SUPER_USER_EMAIL: ${{ secrets.SUPER_USER_EMAIL }}
+      SUPER_USER_NAME: ${{ secrets.SUPER_USER_NAME }}
+      SUPER_USER_PASSWORD: ${{ secrets.SUPER_USER_PASSWORD }}
     strategy:
       max-parallel: 4
     steps:
