@@ -1,11 +1,14 @@
 {
-  "name": "authPI",
+  "name": "authpi",
   "version": "1.0.0",
   "description": "An REST API for authorizate and authenticate users",
   "main": "dist/app.js",
   "repository": "https://github.com/TheLe0/AuthPI.git",
   "author": "TheLe0 <leob.tosin@hotmail.com>",
   "license": "MIT",
+  "prisma": {
+    "seed": "ts-node prisma/seed.ts"
+  },
   "scripts": {
     "start:dev": "ts-node-dev --respawn  src/app.ts | pino-pretty",
     "start:prod": "set NODE_ENV=production && tsc && node dist/app.js",
@@ -22,14 +25,14 @@
     "jest": "^27.3.1",
     "pg": "^8.7.1",
     "pino-pretty": "^7.0.0",
-    "prisma": "^3.6.0",
+    "prisma": "^3.7.0",
     "ts-jest": "^27.1.2",
     "ts-node-dev": "^1.1.8",
     "tslint": "^5.12.1",
     "typescript": "^3.3.3"
   },
   "dependencies": {
-    "@prisma/client": "^3.6.0",
+    "@prisma/client": "^3.7.0",
     "bcryptjs": "^2.4.3",
     "cors": "^2.8.5",
     "dotenv": "ˆ10.0.0",
