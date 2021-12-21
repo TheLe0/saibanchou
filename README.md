@@ -28,15 +28,23 @@ Where:
 
 * <b>JWT_EXPIRATION</B> time in seconds for the token to expire, used ```84600``` as example.
 
+* <b>SUPER_USER_EMAIL</B> The e-mail for the super user, use the e-mail of whose is going to be the sysadmin of the API.
+
+* <b>SUPER_USER_NAME</B> A name for identification of the super user, this is only for identifications purposes.
+
+* <b>SUPER_USER_PASSWORD</B> The password for the super user.
+
 2. Run ```yarn``` for install all the dependencies of the project.
 
 3. Run ```docker-compose up -d``` to create the container for the postgres database. And create a new database named ```USER_API```.
 
 4. Run the prisma migrations ```npx prisma migrate dev```, this is going to execute all the migrations, creating all the database structure.
 
-5. Execute the tests ```yarn test``` to see if is everything fine and working.
+5. Seed the data on prisma to create the super user on the system  with the command ```npx prisma db seed```.
 
-6. Now you can run the application, in development mode ```yarn start:dev``` or in production mode ```yarn start:prod```.
+6. Execute the tests ```yarn test``` to see if is everything fine and working.
+
+7. Now you can run the application, in development mode ```yarn start:dev``` or in production mode ```yarn start:prod```.
 
 ## Database Structure
 
@@ -82,7 +90,7 @@ The response of this endpoint is something like this:
 		"email": "user1@email",
 		"role": "some_role"
 	},
-    {
+	{
 		"name": "User name 2",
 		"email": "user2@email",
 		"role": "some_another_role"
@@ -109,7 +117,7 @@ The response of this endpoint is something like this:
 		"email": "user1@email",
 		"role": "some_role"
 	},
-    {
+	{
 		"name": "User name 2",
 		"email": "user2@email",
 		"role": "some_role"
