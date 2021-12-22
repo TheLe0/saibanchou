@@ -14,6 +14,7 @@ model User {
   id        String  @id
   email     String  @unique
   password  String
+  active    Boolean @default(true)
   name      String?
   role      String
   tokens    Token[]
