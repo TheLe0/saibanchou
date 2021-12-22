@@ -1,5 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
 import { JsonWebToken } from '../utils';
+import { TokenExpiredError } from "jsonwebtoken";
 import { UserRepository } from '../repository';
 
 export async function authenticateUser(request :Request, response :Response, next :NextFunction) {
@@ -8,28 +9,40 @@ export async function authenticateUser(request :Request, response :Response, nex
     const repository = new UserRepository();
     let token = request.headers['authorization'];
 
-    if (token == undefined) {
+    if (token == undefined) 
+    {
         response.status(401).json({message: "Could not find the Bearer token on the header!"});
-    }
-    else {
-        token = jwt.extractToken(token);
-
-        if (await jwt.validateToken(token))
+    } 
+    else 
+    {
+        try 
         {
-            const user = await jwt.getUserFromToken();
+            token = jwt.extractToken(token);
 
-            if (await repository.userExists(user))
+            if (await jwt.validateToken(token))
             {
-                return next();
+                const user = await jwt.getUserFromToken();
+
+                if (await repository.userExists(user))
+                {
+                    return next();
+                }
+                else
+                {
+                    response.status(401).json({message: "The token credentials not found on the system!"});
+                }
             }
-            else
+            else 
             {
-                response.status(401).json({message: "The token credentials not found on the system!"});
+                response.status(401).json({message: "The token is expired!"});
             }
-        }
-        else
+        } 
+        catch (e) 
         {
-            response.status(401).json({message: "The token is expired!"});
+            if (e instanceof TokenExpiredError) 
+            {
+                response.status(401).json({message: "The token is expired!"});
+            }
         }
     }
 }
