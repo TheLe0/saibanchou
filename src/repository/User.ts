@@ -56,8 +56,9 @@ export default class User extends BaseRepository {
             where: {
                 email: user.email,
                 name: user.name,
-                role: user.role
-              },
+                role: user.role,
+                active: true
+            },
         });
 
         return (foundUser > 0);
@@ -65,14 +66,15 @@ export default class User extends BaseRepository {
 
     public async findByEmail(email: string) :Promise<UserModel> {
 
-        const user = await this.prisma.user.findUnique({
+        const user = await this.prisma.user.findFirst({
             select: {
                 email: true,
                 name: true,
                 role: true
             },
             where: {
-                email: email
+                email: email,
+                active: true
             },
         });
 
@@ -85,7 +87,8 @@ export default class User extends BaseRepository {
             select: {
                 name: true,
                 email: true,
-                role: true
+                role: true,
+                active: true
             }
         });
 
@@ -101,7 +104,8 @@ export default class User extends BaseRepository {
                 role: true
             },
             where: {
-                role: role
+                role: role,
+                active: true
             }
         });
 
@@ -175,9 +179,10 @@ export default class User extends BaseRepository {
         let token = undefined;
         const jwt = new JsonWebToken();
 
-        const user = await this.prisma.user.findUnique({
+        const user = await this.prisma.user.findFirst({
             where: {
               email: email,
+              active: true
             },
         });
 
