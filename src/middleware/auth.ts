@@ -43,6 +43,10 @@ export async function authenticateUser(request :Request, response :Response, nex
             {
                 response.status(401).json({message: "The token is expired!"});
             }
+            else
+            {
+                response.status(401).json({message: "The token is invalid!"});
+            }
         }
     }
 }
