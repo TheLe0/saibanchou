@@ -1,9 +1,9 @@
 {
-  "name": "authpi",
-  "version": "1.0.0",
+  "name": "saibanchou",
+  "version": "1.2.0",
   "description": "An REST API for authorizate and authenticate users",
   "main": "dist/app.js",
-  "repository": "https://github.com/TheLe0/AuthPI.git",
+  "repository": "https://github.com/TheLe0/saibanchou.git",
   "author": "TheLe0 <leob.tosin@hotmail.com>",
   "license": "MIT",
   "prisma": {
