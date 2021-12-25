@@ -35,6 +35,14 @@ Where:
 
 * <b>SUPER_USER_PASSWORD</B> The password for the super user.
 
+* <b>REDIS_HOST</B> The host where the redis server is running, the default is on the ``localhost```.
+
+* <b>REDIS_PORT</B> The port on the host where the redis is running. The default is on the port ``6379```. If you are running the redis on docker, you must define the same port as on the ``docker-compose.yml``` file.
+
+* <b>REDIS_PASS</B> The password for the redis server, if has one. This field can be empty if has no password.
+
+* <b>REDIS_DB</B> The name of the database on redis, you can specify whatever name you want to identify the data.
+
 2. Run ```yarn``` for install all the dependencies of the project.
 
 3. Run ```docker-compose up -d``` to create the container for the postgres database. And create a new database named ```USER_API```.
@@ -79,7 +87,12 @@ Here is where is described all the application endpoints, parameters and bodies.
 
 ### GET
 
-* ```/``` : The home endpoint, only used to see if the server is up and running.
+* ```/``` : The home endpoint, only used to see if the server is up and running. The output of this endpoint is going to be a 202 code response code with the following body:
+
+```json
+{
+    "Made with 💙 by TheLe0"
+}
 
 * ```/user``` : List all the users stored in the database.
 The response of this endpoint is something like this:

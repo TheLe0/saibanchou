@@ -5,6 +5,11 @@ import { JsonWebToken } from '../utils';
 
 class User  {
 
+    public async home(req: Request, res: Response)
+    {
+        res.status(202).json("Made with 💙 by TheLe0");
+    }
+
     public async create(req: Request, res: Response)
     {
         const repository = new UserRepository();

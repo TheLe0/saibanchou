@@ -20,6 +20,10 @@ jobs:
       SUPER_USER_EMAIL: ${{ secrets.SUPER_USER_EMAIL }}
       SUPER_USER_NAME: ${{ secrets.SUPER_USER_NAME }}
       SUPER_USER_PASSWORD: ${{ secrets.SUPER_USER_PASSWORD }}
+      REDIS_HOST: ${{ secrets.REDIS_HOST }}
+      REDIS_PORT: ${{ secrets.REDIS_PORT }}
+      REDIS_PASS: ${{ secrets.REDIS_PASS }}
+      REDIS_DB: ${{ secrets.REDIS_DB }}
     strategy:
       max-parallel: 4
     steps:

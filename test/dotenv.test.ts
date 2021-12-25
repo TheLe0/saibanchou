@@ -3,7 +3,8 @@ import {
     SuperUserVars, 
     EncryptVars, 
     AuthVars, 
-    DatabaseVars 
+    DatabaseVars,
+    RedisVars 
 } from '../src/config';
 
 test('load server env vars test', () => {
@@ -23,6 +24,13 @@ test('load super user env vars test', () => {
 
 test('load database env vars test', () => {
     expect(DatabaseVars.Url).toBeDefined();
+});
+
+test('load redis env vars test', () => {
+    expect(RedisVars.Host).toBeDefined();
+    expect(RedisVars.Port).toBeDefined();
+    expect(RedisVars.Password).toBeDefined();
+    expect(RedisVars.Database).toBeDefined();
 });
 
 test('load auth env vars test', () => {
