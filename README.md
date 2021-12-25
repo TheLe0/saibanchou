@@ -93,6 +93,7 @@ Here is where is described all the application endpoints, parameters and bodies.
 {
     "Made with 💙 by TheLe0"
 }
+```
 
 * ```/user``` : List all the users stored in the database.
 The response of this endpoint is something like this:
