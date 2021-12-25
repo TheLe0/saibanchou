@@ -4,10 +4,7 @@ import { authenticateUser } from '../middleware';
 
 const routes :Router = Router();
 
-routes.get('/', authenticateUser, (req, res) => {
-    res.send('Made with 💙 by TheLe0');
-});
-
+routes.get('/', authenticateUser, UserController.home);
 routes.get('/user', authenticateUser, UserController.listAll);
 routes.get('/user/:email/', authenticateUser, UserController.findUser);
 routes.get('/users/:role/', authenticateUser, UserController.listByRole);
