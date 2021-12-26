@@ -1,4 +1,5 @@
 import { PrismaClient, Prisma } from '@prisma/client'
+import { UserCache } from '../cache';
 import { PrismaFactory } from '../data';
 import { v4 as uuid} from 'uuid';
 import { UserModel } from '../model';
@@ -7,6 +8,7 @@ import { Crypt } from '../utils';
 import { JsonWebToken } from '../utils';
 
 const crypt = new Crypt();
+const cache = new UserCache();
 
 export default class User extends BaseRepository {
 
@@ -32,6 +34,8 @@ export default class User extends BaseRepository {
                 },
             });
 
+            await cache.addUser(newUser);
+
             return { 
                 name: newUser.name, 
                 email: newUser.email,
@@ -52,6 +56,12 @@ export default class User extends BaseRepository {
 
     public async userExists(user: UserModel) : Promise<boolean> {
 
+        const user_cache = await cache.findUser(user.email);
+        
+        if (user_cache != null) {
+            return true;
+        }
+
         const foundUser = await this.prisma.user.count({
             where: {
                 email: user.email,
@@ -61,7 +71,14 @@ export default class User extends BaseRepository {
             },
         });
 
-        return (foundUser > 0);
+        if (foundUser > 0) {
+
+            await cache.addUser(user);
+
+            return true;
+        }
+
+        return false;
     }
 
     public async findByEmail(email: string) :Promise<UserModel> {
@@ -78,6 +95,10 @@ export default class User extends BaseRepository {
             },
         });
 
+        if (user != null) {
+            await cache.addUser(user);
+        }
+        
         return user;
     }
 
@@ -124,6 +145,8 @@ export default class User extends BaseRepository {
               email: user.email
             },
         });
+
+        await cache.addUser(updatedUser);
 
         return updatedUser;
     }
@@ -185,6 +208,8 @@ export default class User extends BaseRepository {
               active: true
             },
         });
+
+        await cache.addUser(user);
 
         if (user != undefined) {
 
