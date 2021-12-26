@@ -24,6 +24,8 @@ jobs:
       REDIS_PORT: ${{ secrets.REDIS_PORT }}
       REDIS_PASS: ${{ secrets.REDIS_PASS }}
       REDIS_DB: ${{ secrets.REDIS_DB }}
+      REDIS_EXPIRATION_MODE: ${{ secrets.REDIS_EXPIRATION_MODE }}
+      REDIS_TIME_TO_EXPIRE: ${{ secrets.REDIS_TIME_TO_EXPIRE }}
     strategy:
       max-parallel: 4
     steps:

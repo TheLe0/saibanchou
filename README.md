@@ -43,6 +43,10 @@ Where:
 
 * <b>REDIS_DB</B> The name of the database on redis, you can specify whatever name you want to identify the data.
 
+* <b>REDIS_EXPIRATION_MODE</B> The expiration mode of the register, if you wan to set an expiration put ``EX``` as the value.
+
+* <b>REDIS_TIME_TO_EXPIRE</B> The time in seconds of the expiration of the register, for example ``600```, as 10 minutes.
+
 2. Run ```yarn``` for install all the dependencies of the project.
 
 3. Run ```docker-compose up -d``` to create the container for the postgres database. And create a new database named ```USER_API```.
@@ -250,6 +254,6 @@ And the response is going to return a status code 202 with a message that the ex
 
 The project is not over, there are some new features that are going to be featured on the next versions:
 
-- [ ] Use redis to cache the information
+- [X] Use redis to cache the information
 - [ ] Implement refresh tokens
 - [ ] Implement authorization by roles

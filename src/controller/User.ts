@@ -67,7 +67,11 @@ class User  {
 
         const user = await repository.findByEmail(email);
 
-        res.status(202).json(user);
+        if (user == null) {
+            res.status(404).json({message: "The user could not be found!"});
+        } else {
+            res.status(202).json(user);
+        }
     }
 
     public async update(req: Request, res: Response) {
@@ -83,7 +87,7 @@ class User  {
 
         if (updatedUser == undefined)
         {
-            res.status(404).json({message: "The user could not be found!"})
+            res.status(404).json({message: "The user could not be found!"});
         }
 
         user = {

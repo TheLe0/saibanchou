@@ -31,6 +31,8 @@ test('load redis env vars test', () => {
     expect(RedisVars.Port).toBeDefined();
     expect(RedisVars.Password).toBeDefined();
     expect(RedisVars.Database).toBeDefined();
+    expect(RedisVars.ExpireMode).toBeDefined();
+    expect(RedisVars.TimeToExpire).toBeDefined();
 });
 
 test('load auth env vars test', () => {
