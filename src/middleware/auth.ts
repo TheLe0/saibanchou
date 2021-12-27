@@ -2,6 +2,7 @@ import { Request, Response, NextFunction } from 'express';
 import { JsonWebToken } from '../utils';
 import { TokenExpiredError } from "jsonwebtoken";
 import { UserRepository } from '../repository';
+import { Role } from '../model';
 
 export async function authenticateUser(request :Request, response :Response, next :NextFunction) {
 
@@ -49,4 +50,9 @@ export async function authenticateUser(request :Request, response :Response, nex
             }
         }
     }
+}
+
+export async function authorizeUser(request :Request, response :Response, next :NextFunction,roles: Role[] = []) {
+
+    return next();
 }
