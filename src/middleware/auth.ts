@@ -52,7 +52,53 @@ export async function authenticateUser(request :Request, response :Response, nex
     }
 }
 
-export async function authorizeUser(request :Request, response :Response, next :NextFunction,roles: Role[] = []) {
+export function authorizeUser(roles: Role[] = []) {
 
-    return next();
+    return async (request :Request, response :Response, next :NextFunction) => {
+
+        const jwt = new JsonWebToken();
+        let token = request.headers['authorization'];
+    
+        if (token == undefined) 
+        {
+            response.status(401).json({message: "Could not find the Bearer token on the header!"});
+        } 
+        else 
+        {
+            try 
+            {
+                token = jwt.extractToken(token);
+    
+                if (await jwt.validateToken(token))
+                {
+                    const user = await jwt.getUserFromToken();
+    
+                    if (roles.includes(user.role as Role) || (roles.length <= 0))
+                    {
+                        return next();
+                    }
+                    else
+                    {
+                        response.status(403).json({message: "You are not allowed to do this request!"});
+                    }
+    
+                }
+                else 
+                {
+                    response.status(401).json({message: "The token is expired!"});
+                }
+            } 
+            catch (e) 
+            {
+                if (e instanceof TokenExpiredError) 
+                {
+                    response.status(401).json({message: "The token is expired!"});
+                }
+                else
+                {
+                    response.status(401).json({message: "The token is invalid!"});
+                }
+            }
+        }  
+    }
 }

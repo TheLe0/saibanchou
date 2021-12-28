@@ -13,6 +13,7 @@ export function isValidRole(role: string) :boolean {
         case Role.ADMIN:
         case Role.MODERATOR:
         case Role.USER:
+        case Role.GUEST:
             return true;
         default:
             return false;

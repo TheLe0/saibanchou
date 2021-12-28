@@ -4,6 +4,18 @@
 Saibanchou is a REST API made on Node for authenticate and authorize users. You no longer have to hurry with authentication and authorizations in your APIs and services, saibanchou can handle this for you.
 The name saibanchou came from the anime/game called Ace Attorney that is about lawyers. The  saibanchou is the judge, he decides if someone is guilty or not, like in this API, is responsible to decide if someone is authorizad/authenticated to do something or not.
 
+## How it works
+
+Both the authentication and authorization are middlewares, they are executed before each request, if fails on the validations, the request is not made and returns an error. 
+
+### Authentication
+
+When you access the login endpoint, if the credentials match to what is stored in database, is going to generate a JWT that you can use in the others endpoints in the authentication header as a Bearer Token. In the claims of the token is stored the e-mail name and the role of the user that did the login. When you make a request it validates if the token did not expired yet, if so, you must generate another token. 
+
+### Authorization
+
+The authorization is responsible to validate the policiesof the sysstem, if the user have permission to access some resource or do some request. Is compared if the role of the user, stored on the claims of the token, match to one of the roles allowed to the executed request, specified on the routes file.
+
 ## Prerequisites
 
 1. Node
@@ -256,4 +268,4 @@ The project is not over, there are some new features that are going to be featur
 
 - [X] Use redis to cache the information
 - [ ] Implement refresh tokens
-- [ ] Implement authorization by roles
+- [X] Implement authorization by roles
