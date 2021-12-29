@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 import { UserRepository } from '../repository';
 import { UserModel, isValidRole } from '../model';
-import { JsonWebToken } from '../utils';
+import { JsonWebToken } from '../service';
 
 class User  {
 

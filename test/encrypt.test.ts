@@ -1,4 +1,4 @@
-import { Crypt } from '../src/utils';
+import { Crypt } from '../src/service';
 
 const crypt = new Crypt();
 const inputString = "leonardo";
