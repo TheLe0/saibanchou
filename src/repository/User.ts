@@ -4,8 +4,8 @@ import { PrismaFactory } from '../data';
 import { v4 as uuid} from 'uuid';
 import { UserModel } from '../model';
 import BaseRepository  from './BaseRepository';
-import { Crypt } from '../utils';
-import { JsonWebToken } from '../utils';
+import { Crypt } from '../service';
+import { JsonWebToken } from '../service';
 
 const crypt = new Crypt();
 const cache = new UserCache();

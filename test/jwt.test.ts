@@ -1,4 +1,4 @@
-import { JsonWebToken } from '../src/utils';
+import { JsonWebToken } from '../src/service';
 
 const jwt = new JsonWebToken();
 const user = { 

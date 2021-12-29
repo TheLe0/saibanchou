@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
-import { JsonWebToken } from '../utils';
+import { JsonWebToken } from '../service';
 import { TokenExpiredError } from "jsonwebtoken";
 import { UserRepository } from '../repository';
 import { Role } from '../model';
