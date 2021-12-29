@@ -59,17 +59,47 @@ Where:
 
 * <b>REDIS_TIME_TO_EXPIRE</B> The time in seconds of the expiration of the register, for example ``600```, as 10 minutes.
 
-2. Run ```yarn``` for install all the dependencies of the project.
+2. Run the command below for install all the dependencies of the project.
 
-3. Run ```docker-compose up -d``` to create the container for the postgres database. And create a new database named ```USER_API```.
+```bash
+yarn
+```
 
-4. Run the prisma migrations ```npx prisma migrate dev```, this is going to execute all the migrations, creating all the database structure.
+3. Run the command below to create the container for the postgres database. And create a new database named ```USER_API``` on postgres.
 
-5. Seed the data on prisma to create the super user on the system  with the command ```npx prisma db seed```.
+```bash
+docker-compose up -d
+```
 
-6. Execute the tests ```yarn test``` to see if is everything fine and working.
+4. Run the prisma migrations, this is going to execute all the migrations, creating all the database structure.c
 
-7. Now you can run the application, in development mode ```yarn start:dev``` or in production mode ```yarn start:prod```.
+```bash
+yarn db:migrate
+```
+
+5. Seed the data on prisma to create the super user on the system  with the command below.
+
+```bash
+yarn db:seed
+```
+
+6. Execute the tests to see if is everything fine and working.
+
+```bash
+yarn test
+```
+
+7. Now you can run the application, in development mode or in production mode.
+
+#### Development Mode
+```bash
+yarn start:dev
+```
+
+#### Production Mode
+```bash
+yarn start:prod
+```
 
 ## Database Structure
 
@@ -268,4 +298,5 @@ The project is not over, there are some new features that are going to be featur
 
 - [X] Use redis to cache the information
 - [ ] Implement refresh tokens
+- [ ] Change the algoithm of the JWT to use private and public key
 - [X] Implement authorization by roles

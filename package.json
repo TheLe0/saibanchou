@@ -12,6 +12,8 @@
   "scripts": {
     "start:dev": "ts-node-dev --respawn  src/app.ts | pino-pretty",
     "start:prod": "set NODE_ENV=production && tsc && node dist/app.js",
+    "db:migrate": "npx prisma migrate dev",
+    "db:seed": "npx prisma db seed",
     "test": "jest --setupFiles dotenv/config"
   },
   "devDependencies": {
