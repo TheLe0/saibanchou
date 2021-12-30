@@ -308,12 +308,3 @@ And the response is going to return a status code 202 with a message that the ex
 	"The user was successfully deleted!"
 }
 ```
-
-## Next Steps
-
-The project is not over, there are some new features that are going to be featured on the next versions:
-
-- [X] Use redis to cache the information
-- [ ] Implement refresh tokens
-- [X] Change the algorithm of the JWT to RS256
-- [X] Implement authorization by roles
