@@ -37,7 +37,24 @@ Where:
 
 * <b>SALT</B> this is a number where you specify the number of rounds of the salt when you use bcrypt.
 
-* <b>JWT_SECRET</B> this is the symetric key for generate the JWT tokens, the algorithm used was the default, SHA256, and its use only on key (symetric). The tests was build using ```EQrsJ1qzQW``` as the key. If you are going to use another, change the JWTs used as mock on the tests.
+* <b>JWT_ALGORITHM</B> this is the algorithm used to generate and verify the JWTs, you should use ```RS256``` because this API was made using symetric and asymetric key pairs. You can use other algorithm, just verify if it needs just one key or a pair.
+
+For generating the public and private keys you need to run the following commands:
+
+```bash
+ssh-keygen -t rsa -b 4096 -m PEM -f jwtRS256.key
+# Don't add passphrase
+openssl rsa -in jwtRS256.key -pubout -outform PEM -out jwtRS256.key.pub
+cat jwtRS256.key # JWT_PRIVATE_KEY
+cat jwtRS256.key.pub # JWT_PUBLIC_KEY
+```
+* <b>JWT_PRIVATE_KEY</B> This key is used to generate a new token. You should use what was printed in the terminal after the first ```cat```command.
+
+* <b>JWT_PUBLIC_KEY</B> This key is used to validate the token. You should use what was printed in the terminal after the last ```cat```command.
+
+><b>Note:</b>
+> If you opt to another algorithm, a symetric one that needs just a single key like HS256,
+> you can use the same key for the JWT_PRIVATE_KEY and  JWT_PUBLIC_KEY for not need to change the code.
 
 * <b>JWT_EXPIRATION</B> time in seconds for the token to expire, used ```84600``` as example.
 
@@ -298,5 +315,5 @@ The project is not over, there are some new features that are going to be featur
 
 - [X] Use redis to cache the information
 - [ ] Implement refresh tokens
-- [ ] Change the algorithm of the JWT to RS256
+- [X] Change the algorithm of the JWT to RS256
 - [X] Implement authorization by roles
