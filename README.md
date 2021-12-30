@@ -298,5 +298,5 @@ The project is not over, there are some new features that are going to be featur
 
 - [X] Use redis to cache the information
 - [ ] Implement refresh tokens
-- [ ] Change the algoithm of the JWT to use private and public key
+- [ ] Change the algorithm of the JWT to RS256
 - [X] Implement authorization by roles
