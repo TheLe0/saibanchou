@@ -4,13 +4,17 @@ import { UserModel } from '../model';
 
 export default class JsonWebToken {
 
-    private secret: string;
+    private publicKey: string;
+    private privateKey: string;
+    private algorithm: string;
     private expiration: number;
     private user: UserModel;
     private tokenExpiration: number;
 
     constructor() {
-        this.secret =  AuthVars.Secret;
+        this.publicKey = AuthVars.PublicKey;
+        this.privateKey = AuthVars.PrivateKey;
+        this.algorithm = AuthVars.Algorithm;
         this.expiration = parseInt(AuthVars.Expiration);
         this.user = undefined;
         this.tokenExpiration = undefined;
@@ -35,14 +39,17 @@ export default class JsonWebToken {
 
     public async generateToken(user: UserModel) :Promise<string> {
 
-        return await jwt.sign({user}, this.secret, {
-            expiresIn: this.expiration
+        return await jwt.sign({user}, this.privateKey, {
+            expiresIn: this.expiration,
+            algorithm: this.algorithm
         });
     }
 
     private async decodeToken(token: string) {
 
-        const decoded = await jwt.verify(token, this.secret);
+        const decoded = await jwt.verify(token, this.publicKey, {
+            algorithms: this.algorithm
+        });
 
         this.user =  {
             name: decoded.user.name,

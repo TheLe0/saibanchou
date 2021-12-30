@@ -36,6 +36,8 @@ test('load redis env vars test', () => {
 });
 
 test('load auth env vars test', () => {
-    expect(AuthVars.Secret).toBeDefined();
+    expect(AuthVars.Algorithm).toBeDefined();
+    expect(AuthVars.PublicKey).toBeDefined();
+    expect(AuthVars.PrivateKey).toBeDefined();
     expect(AuthVars.Expiration).toBeDefined();  
 });
