@@ -28,6 +28,8 @@ jobs:
       REDIS_DB: ${{ secrets.REDIS_DB }}
       REDIS_EXPIRATION_MODE: ${{ secrets.REDIS_EXPIRATION_MODE }}
       REDIS_TIME_TO_EXPIRE: ${{ secrets.REDIS_TIME_TO_EXPIRE }}
+      REFRESH_TOKEN_EXPIRATION: ${{ secrets.REFRESH_TOKEN_EXPIRATION }}
+      REFRESH_TOKEN_LENGTH: ${{ secrets.REFRESH_TOKEN_LENGTH }}
     strategy:
       max-parallel: 4
     steps:

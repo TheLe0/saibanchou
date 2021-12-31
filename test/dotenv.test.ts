@@ -4,7 +4,8 @@ import {
     EncryptVars, 
     AuthVars, 
     DatabaseVars,
-    RedisVars 
+    RedisVars ,
+    RefreshTokenVars
 } from '../src/config';
 
 test('load server env vars test', () => {
@@ -40,4 +41,9 @@ test('load auth env vars test', () => {
     expect(AuthVars.PublicKey).toBeDefined();
     expect(AuthVars.PrivateKey).toBeDefined();
     expect(AuthVars.Expiration).toBeDefined();  
+});
+
+test('load refresh tokens env vars test', () => {
+    expect(RefreshTokenVars.Expiration).toBeDefined();
+    expect(RefreshTokenVars.Length).toBeDefined();
 });
