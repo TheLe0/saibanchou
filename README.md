@@ -76,6 +76,10 @@ cat jwtRS256.key.pub # JWT_PUBLIC_KEY
 
 * <b>REDIS_TIME_TO_EXPIRE</B> The time in seconds of the expiration of the register, for example ``600```, as 10 minutes.
 
+* <b>REFRESH_TOKEN_EXPIRATION</B> The time in seconds of the expiration of the refresh token, for example ``604800```, as 7 days. This expiration must be higher than the JWT expiration for it not lost its relevance and power.
+
+* <b>REFRESH_TOKEN_LENGTH</B> The length, number of characters, of the generated refresh token. For example ```64```, higher it is, more unique is gonna be.
+
 2. Run the command below for install all the dependencies of the project.
 
 ```bash
@@ -87,6 +91,9 @@ yarn
 ```bash
 docker-compose up -d
 ```
+
+><b>Note:</b>
+> If you have already a postgres database volume on docker created, you can put ``` --force-recreate --renew-anon-volumes``` to clean the database.
 
 4. Run the prisma migrations, this is going to execute all the migrations, creating all the database structure.c
 
