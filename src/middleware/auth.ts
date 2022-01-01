@@ -25,10 +25,11 @@ export async function authenticateUser(request :Request, response :Response, nex
             {
                 const user = await jwt.getUserFromToken();
 
-                if (await repository.userExists(user))
+                const userId = await repository.getUserIdByEmail(user.email);
+
+                if (userId)
                 {
                     const token = new RefreshToken();
-                    const userId = await repository.getUserIdByEmail(user.email);
 
                     let objToken :TokenModel = {
                         refreshToken: token.generateToken(userId),
