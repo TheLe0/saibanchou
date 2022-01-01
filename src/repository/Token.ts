@@ -69,4 +69,19 @@ export default class User extends BaseRepository {
 
         return (token != undefined) ? true : false;
     }
+
+    public async invalidateAllRefreshTokensByUser(userId: string) :Promise<boolean> {
+
+        const token = await this.prisma.token.updateMany({
+            where: {
+                userId: userId,
+                active: true
+            },
+            data: {
+                active: false
+            }
+        });
+
+        return (token != undefined) ? true : false;
+    }
 }

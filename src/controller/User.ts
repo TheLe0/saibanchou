@@ -240,6 +240,41 @@ class User  {
             res.status(404).json({message: "The e-mail or password are incorrect"})
         }
     }
+
+    public async logout(req: Request, res: Response) {
+
+        const { allDevices } = req.body;
+        const repository = new TokenRepository();
+        let response = false;
+
+        const cookies = CookieUtil.parseCookiesToMap(req.headers.cookie);
+
+        if (cookies == undefined || cookies.get('refreshToken') == undefined) {
+            res.status(202).json({message: "Logout made successfully!"});
+        } else {
+
+            const refreshToken = cookies.get('refreshToken');
+
+            if (allDevices) {
+
+                const token = await repository.findByRefreshToken(refreshToken);
+
+                response = await repository.invalidateAllRefreshTokensByUser(token.userId);
+
+            } else {
+                response = await repository.invalidateRefreshToken(refreshToken);
+            }
+
+            if (response) {
+
+                res.clearCookie('refreshToken');
+
+                res.status(202).json({message: "Logout made successfully!"});
+            } else {
+                res.status(401).json({message: "Error during the logout!"});
+            }
+        }
+    }
 }
 
 export default new User();
