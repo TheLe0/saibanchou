@@ -135,6 +135,8 @@ yarn start:prod
 | email        | string     |     Unique         |
 | name         | string     |                    |
 | role         | string     |                    |
+| active	   | boolean	|	  				 |
+| password	   | string		|					 | 	
 
 + Token
 
@@ -145,6 +147,7 @@ yarn start:prod
 | refreshToken | string     |                    |
 | device       | string     |                    |
 | expiration   | datetime   |                    |
+| active	   | boolean	|	  				 |
 
 ## Endpoints
 
@@ -231,6 +234,18 @@ And the response, if the credentials match with the database, is going to genera
 }
 ```
 
+* ```/user/refreshToken``` : Endpoint for update the refresh token and generate another JWT.
+
+This is used for the front-end application running this API, to re-generate and update the tokens credentials. This strategy is for the user do not need to login again each time the JWT expired, with the refresh token the user is going to have access to the API until he stops to use it, the time specified for expiration of the refresh token. The user only needs to login again if the JWT and the refresh token expired.
+
+The response is like the login one, only is going to return the new JWT. The refresh token is store in the cookies of the server running the API.
+
+```json
+{
+	"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7Im5hbWUiOiJMZW9uYXJkbyAgVG9zaW4iLCJlbWFpbCI6ImxidG9zaW5AdWNzLmJyIiwicm9sZSI6InN5c2FkbWluIn0sImlhdCI6MTYzOTk1NzI5NywiZXhwIjoxNjQwMDQxODk3fQ.nxeKM_gkncrH9BfLBHZ95AjIjsajj47WeMQI3drLrcU"
+}
+```
+
 * ```/user``` : Endpoint for create a new user in the database.
 
 Request body:
@@ -253,6 +268,28 @@ And the response is going to be the user created, only with the public fields, i
 	"email": "user@email.com",
 	"name": "User name",
 	"role": "some_role"
+}
+```
+
+* ```/user/logout``` : Endpoint for logout and clear the current or all sessions of the respective user.
+
+In the body, only needs to pass a field used as a flag to signal if is only the current or all the sessions.
+
+Request body:
+
+
+```json
+{ 
+	"allDevices": true
+}
+```
+
+And the response is only to give a message saying if the request was successfully completed or not.
+
+
+```json
+{
+	"message": "Logout made successfully!"
 }
 ```
 

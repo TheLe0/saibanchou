@@ -15,5 +15,6 @@ routes.post('/user/login', UserController.login);
 routes.post('/user/refreshToken', UserController.refreshToken);
 routes.delete('/user/:email/', authenticateUser, authorizeUser([Role.SYSADMIN, Role.ADMIN, Role.MODERATOR, Role.GUEST]), UserController.delete);
 routes.patch('/user/', authenticateUser, authorizeUser([Role.SYSADMIN, Role.ADMIN, Role.MODERATOR, Role.GUEST]), UserController.changePassword);
+routes.post('/user/logout', UserController.logout);
 
 export default routes;
