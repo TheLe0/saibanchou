@@ -33,4 +33,40 @@ export default class User extends BaseRepository {
             expiration: newToken.expiration
         }
     }
+
+    public async findByRefreshToken(refreshToken: string) :Promise<TokenModel> {
+
+        const token = await this.prisma.token.findFirst({
+            where: {
+                refreshToken: refreshToken,
+                active: true
+            },
+        });
+
+        if (token == undefined || token.expiration < new Date()) {
+            return undefined;
+        }
+
+        return {
+            refreshToken: token.refreshToken,
+            userId: token.userId,
+            device: token.device,
+            expiration: token.expiration
+        }
+    }
+
+    public async invalidateRefreshToken(refreshToken: string) :Promise<boolean> {
+
+        const token = await this.prisma.token.updateMany({
+            where: {
+                refreshToken: refreshToken,
+                active: true
+            },
+            data: {
+                active: false
+            }
+        });
+
+        return (token != undefined) ? true : false;
+    }
 }
