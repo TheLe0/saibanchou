@@ -1,14 +1,13 @@
 import { Request, Response, NextFunction } from 'express';
-import { JsonWebToken, RefreshToken } from '../service';
+import { JsonWebToken } from '../service';
 import { TokenExpiredError } from "jsonwebtoken";
-import { UserRepository, TokenRepository } from '../repository';
-import { Role, TokenModel } from '../model';
+import { UserRepository } from '../repository';
+import { Role } from '../model';
 
 export async function authenticateUser(request :Request, response :Response, next :NextFunction) {
 
     const jwt = new JsonWebToken();
     const repository = new UserRepository();
-    const tokenRepository = new TokenRepository();
     let token = request.headers['authorization'];
 
     if (token == undefined) 
@@ -25,21 +24,9 @@ export async function authenticateUser(request :Request, response :Response, nex
             {
                 const user = await jwt.getUserFromToken();
 
-                const userId = await repository.getUserIdByEmail(user.email);
-
-                if (userId)
+                if (await repository.userExists(user))
                 {
-                    const token = new RefreshToken();
-
-                    let objToken :TokenModel = {
-                        refreshToken: token.generateToken(userId),
-                        userId: userId,
-                        device: "API",
-                        expiration: token.getExpirationSeconds()
-                    }
-
-                    objToken = await tokenRepository.createNewToken(objToken);
-
+                  
                     return next();
                 }
                 else
