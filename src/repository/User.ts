@@ -81,6 +81,21 @@ export default class User extends BaseRepository {
         return false;
     }
 
+    public async getUserIdByEmail(email: string) :Promise<string> {
+
+        const user = await this.prisma.user.findFirst({
+            select: {
+                id: true
+            },
+            where: {
+                email: email,
+                active: true
+            },
+        });
+
+        return user.id;
+    }
+
     public async findByEmail(email: string) :Promise<UserModel> {
 
         const user = await this.prisma.user.findFirst({

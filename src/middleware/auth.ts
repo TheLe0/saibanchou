@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
-import { JsonWebToken } from '../service';
+import { JsonWebToken, RefreshToken } from '../service';
 import { TokenExpiredError } from "jsonwebtoken";
 import { UserRepository } from '../repository';
 import { Role } from '../model';
@@ -26,6 +26,10 @@ export async function authenticateUser(request :Request, response :Response, nex
 
                 if (await repository.userExists(user))
                 {
+                    const token = new RefreshToken();
+
+                    await token.storeToken(user.email);
+
                     return next();
                 }
                 else
