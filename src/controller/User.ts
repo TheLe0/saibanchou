@@ -1,7 +1,8 @@
 import { Request, Response } from 'express';
-import { UserRepository } from '../repository';
-import { UserModel, isValidRole } from '../model';
-import { JsonWebToken } from '../service';
+import { UserRepository, TokenRepository } from '../repository';
+import { UserModel, isValidRole, TokenModel } from '../model';
+import { JsonWebToken, RefreshToken } from '../service';
+import { CookieUtil } from '../util';
 
 class User  {
 
@@ -142,6 +143,37 @@ class User  {
         const token = await repository.login(email, password);
 
         if (token != undefined) {
+
+            const cookieList = CookieUtil.parseCookiesToMap(req.headers.cookie);
+
+            if (cookieList == undefined || !cookieList.get('refreshToken'))
+            {
+                const tokenRepository = new TokenRepository();
+                const token = new RefreshToken();
+
+                const userId = await repository.getUserIdByEmail(email);
+
+                let objToken :TokenModel = {
+                    refreshToken: token.generateToken(userId),
+                    userId: userId,
+                    device: "API",
+                    expiration: token.getExpirationSeconds()
+                }
+
+                objToken = await tokenRepository.createNewToken(objToken);
+
+                if (objToken) {
+                    res.cookie(
+                        'refreshToken', 
+                        objToken.refreshToken,
+                        {
+                            httpOnly: true,
+                            expires: objToken.expiration
+                        }
+                    )
+                }
+            }
+
             res.status(202).json({token})
         } else {
             res.status(404).json({message: "The e-mail or password are incorrect"})
