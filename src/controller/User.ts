@@ -11,6 +11,67 @@ class User  {
         res.status(202).json("Made with 💙 by TheLe0");
     }
 
+    public async refreshToken(req: Request, res: Response)
+    {
+        let accessToken = undefined;
+        const cookies = CookieUtil.parseCookiesToMap(req.headers.cookie);
+        const tokenRepository = new TokenRepository();
+        const userRepository = new UserRepository();
+
+        if (cookies != undefined && cookies.get('refreshToken')) {
+
+            const token = await tokenRepository.findByRefreshToken(cookies.get('refreshToken'));
+
+            if (token == undefined) {
+                res.status(401).json({message: "Refresh token not found or it's expired!"});
+            } else {
+
+                const user = await userRepository.findUserById(token.userId);
+
+                if (user != undefined) {
+
+                    const jwt = new JsonWebToken();
+
+                    accessToken = await jwt.generateToken(user);
+
+                    if (await tokenRepository.invalidateRefreshToken(token.refreshToken)) {
+
+                        const refreshTokenService = new RefreshToken();
+
+                        let objToken :TokenModel = {
+                            refreshToken: refreshTokenService.generateToken(token.userId),
+                            userId: token.userId,
+                            device: "API",
+                            expiration: refreshTokenService.getExpirationSeconds()
+                        }
+        
+                        objToken = await tokenRepository.createNewToken(objToken);
+        
+                        if (objToken) {
+                            res.cookie(
+                                'refreshToken', 
+                                objToken.refreshToken,
+                                {
+                                    httpOnly: true,
+                                    expires: objToken.expiration
+                                }
+                            )
+                        }
+
+                    }
+
+                    res.status(202).json({token: accessToken})
+
+                } else {
+                    res.status(401).json({message: "User not found!"});
+                }
+            }
+
+        } else {
+            res.status(401).json({message: "Refresh token not found!"});
+        }
+    }
+
     public async create(req: Request, res: Response)
     {
         const repository = new UserRepository();
