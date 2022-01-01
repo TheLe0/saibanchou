@@ -11,8 +11,8 @@ export default class RefreshToken {
         this.tokenLenght = parseInt(RefreshTokenVars.Length);
     }
 
-    public generateToken() :string {
-        const token = crypto.randomBytes(this.tokenLenght).toString("hex");
+    public generateToken(userId: string) :string {
+        const token = userId + crypto.randomBytes(this.tokenLenght).toString("hex");
 
         return token;
     }
