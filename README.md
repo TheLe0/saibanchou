@@ -2,7 +2,8 @@
 [![.github/workflows/node.js.yml](https://github.com/TheLe0/AuthPI/actions/workflows/node.js.yml/badge.svg)](https://github.com/TheLe0/AuthPI/actions/workflows/node.js.yml)
 
 Saibanchou is a REST API made on Node for authenticate and authorize users. You no longer have to hurry with authentication and authorizations in your APIs and services, saibanchou can handle this for you.
-The name saibanchou came from the anime/game called Ace Attorney that is about lawyers. The  saibanchou is the judge, he decides if someone is guilty or not, like in this API, is responsible to decide if someone is authorizad/authenticated to do something or not.
+
+The name saibanchou came from the anime/game called Ace Attorney that is about lawyers. The  saibanchou is the judge, he decides if someone is guilty or not, like in this API, is responsible to decide if someone is authorized/authenticated to do something or not.
 
 ## How it works
 
