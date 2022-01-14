@@ -67,7 +67,7 @@ cat jwtRS256.key.pub # JWT_PUBLIC_KEY
 
 * <b>REDIS_HOST</B> The host where the redis server is running, the default is on the ``localhost```.
 
-* <b>REDIS_PORT</B> The port on the host where the redis is running. The default is on the port ``6379```. If you are running the redis on docker, you must define the same port as on the ``docker-compose.yml``` file.
+* <b>REDIS_PORT</B> The port on the host where the redis is running. The default is on the port ``6379``. If you are running the redis on docker, you must define the same port as on the ``docker-compose.yml``` file.
 
 * <b>REDIS_PASS</B> The password for the redis server, if has one. This field can be empty if has no password.
 
